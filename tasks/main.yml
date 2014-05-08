@@ -1,0 +1,59 @@
+---
+
+- name: download Tomcat
+  local_action: >
+    get_url
+      url="{{tomcat_download_url}}"
+      dest="{{tomcat_download_dir}}/{{tomcat_package}}"
+  tags: download
+
+- name: unpacks Tomcat
+  local_action: >
+    unarchive
+      src="{{tomcat_download_dir}}/{{tomcat_package}}"
+      dest="{{tomcat_download_dir}}/"
+  tags: unpack
+
+- name: ensures {{tomcat_dir}}/{{tomcat_version}} exists
+  file:
+    path="{{tomcat_dir}}/{{tomcat_version}}"
+    state=directory
+  tags: unpack
+
+- name: ensures Tomcat is installed at {{tomcat_dir}}/{{tomcat_version}}
+  copy:
+    src="{{tomcat_download_dir}}/apache-tomcat-{{tomcat_version}}/"
+    dest="{{tomcat_dir}}/{{tomcat_version}}"
+  tags: unpack
+
+- name: ensures Tomcat context config folder exists
+  file:
+    path="{{tomcat_dir}}/{{tomcat_version}}/conf/Catalina/localhost"
+    state=directory
+
+- name: configures server.xml
+  template:
+    src=server.xml.j2
+    dest="{{tomcat_dir}}/{{tomcat_version}}/conf/server.xml"
+
+- name: configures tomcat-users.xml
+  template:
+    src="tomcat-users.xml.j2"
+    dest="{{tomcat_dir}}/{{tomcat_version}}/conf/tomcat-users.xml"
+
+- name: configures logging.properties
+  template:
+    src="logging.properties.j2"
+    dest="{{tomcat_dir}}/{{tomcat_version}}/conf/logging.properties"
+
+- name: creates tomcat.sh
+  template:
+    src="tomcat.sh.j2"
+    dest="{{tomcat_dir}}/{{tomcat_version}}/tomcat.sh"
+    mode=0700
+
+- name: configures the setenv.sh script
+  template:
+    src=setenv.sh.j2
+    dest="{{tomcat_dir}}/{{tomcat_version}}/bin/setenv.sh"
+    mode=0755
