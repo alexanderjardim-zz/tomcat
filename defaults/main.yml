@@ -18,7 +18,7 @@ tomcat_download_dir: '~/Downloads'
 
 tomcat_log_level: 'FINE'
 
-tomcat_log_dir: '${catalina.base}/logs'
+tomcat_log_dir: '{{tomcat_dir}}/{{tomcat_version}}/logs'
 
 tomcat_log_limit: 1024
 

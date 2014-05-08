@@ -31,6 +31,11 @@
     path="{{tomcat_dir}}/{{tomcat_version}}/conf/Catalina/localhost"
     state=directory
 
+- name: ensures {{tomcat_log_dir}} exists
+  file:
+    path="{{tomcat_log_dir}}"
+    state=directory
+
 - name: configures server.xml
   template:
     src=server.xml.j2
@@ -52,8 +57,22 @@
     dest="{{tomcat_dir}}/{{tomcat_version}}/tomcat.sh"
     mode=0700
 
+- name: ensures executable scripts have the right permissions
+  file:
+    path="{{tomcat_dir}}/{{tomcat_version}}/bin/{{item}}"
+    mode=0755
+    state=file
+  with_items:
+    - startup.sh
+    - catalina.sh
+    - shutdown.sh
+
 - name: configures the setenv.sh script
   template:
     src=setenv.sh.j2
     dest="{{tomcat_dir}}/{{tomcat_version}}/bin/setenv.sh"
     mode=0755
+
+- name: ensures tomcat is restarted
+  shell:
+    "nohup {{tomcat_dir}}/{{tomcat_version}}/tomcat.sh &"
