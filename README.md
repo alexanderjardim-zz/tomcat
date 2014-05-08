@@ -3,10 +3,15 @@ Tomcat
 
 Tomcat ansible role.
 
+1. All my roles make the assumption that host machines don't have internet connection, as this is the standard behavior of production machines in most companies. So, all the necessary dependencies will be downloaded to the control machine and after that pushed to the host machines. Keep in mind that you will need disk space for these downloads on your control machine.
+1. I try to not use any package manager, at all. This way, you will not depend on more than one maintainer for the same software (the software original writer, and the package management team). Going this way, it is your choice to install using root or not. Which I always advise to don't use, if you can.
+1. I try to keep all of my roles free from sudo or root access. If you want to use root, it is your choice and not an specific demand, and I will keep this way as long as I can.
+
+
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+none
 
 Role Variables
 --------------
@@ -22,7 +27,7 @@ Role Variables
 - tomcat_log_level: 'FINE
 - tomcat_log_dir: '${catalina.base}/logs
 - tomcat_log_limit: 102
-- tomcat_port: 808
+- tomcat_port: 8080
 - tomcat_shutdown_port: 800
 - tomcat_ajp_port: 800
 - tomcat_redirect_port: 844
