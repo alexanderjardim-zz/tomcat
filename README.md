@@ -16,7 +16,7 @@ none
 Role Variables
 --------------
 
-tomcat_dir: '/home/vagrant/tomcat'
+- tomcat_dir: '/home/vagrant/tomcat'
 - tomcat_major_version: '7'
 - tomcat_minor_version: '0'
 - tomcat_micro_version: '53'
@@ -35,6 +35,7 @@ tomcat_dir: '/home/vagrant/tomcat'
 - tomcat_users: [
   { name: 'tomcat', password: 'tomcat', roles: 'tomcat,admin-gui'}
 ]
+
 Dependencies
 ------------
 
