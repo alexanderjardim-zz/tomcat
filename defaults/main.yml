@@ -12,7 +12,7 @@ tomcat_version: "{{tomcat_major_version}}.{{tomcat_minor_version}}.{{tomcat_micr
 
 tomcat_package: 'apache-tomcat-{{tomcat_version}}.tar.gz'
 
-tomcat_download_url: "http://ftp.unicamp.br/pub/apache/tomcat/tomcat-{{tomcat_major_version}}/v{{tomcat_version}}/bin/{{tomcat_package}}"
+tomcat_download_url: "http://archive.apache.org/dist/tomcat/tomcat-{{tomcat_major_version}}/v{{tomcat_version}}/bin/{{tomcat_package}}"
 
 tomcat_download_dir: '~/Downloads'
 
