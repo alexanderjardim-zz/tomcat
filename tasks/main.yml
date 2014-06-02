@@ -21,10 +21,23 @@
   tags: unpack
 
 - name: ensures Tomcat is installed at {{tomcat_dir}}/{{tomcat_version}}
-  copy:
-    src="{{tomcat_download_dir}}/apache-tomcat-{{tomcat_version}}/"
+  synchronize:
+    src="{{tomcat_download_dir}}/apache-tomcat-{{tomcat_version}}/{{item}}"
     dest="{{tomcat_dir}}/{{tomcat_version}}"
+    archive=yes
+    recursive=yes
   tags: unpack
+  with_items:
+    - bin
+    - conf
+    - lib
+    - LICENSE
+    - NOTICE
+    - RELEASE-NOTES
+    - RUNNING.txt
+    - temp
+    - webapps
+    - work
 
 - name: ensures Tomcat context config folder exists
   file:
