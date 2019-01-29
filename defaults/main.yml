@@ -1,6 +1,6 @@
 ---
 
-tomcat_dir: '/home/vagrant/tomcat'
+tomcat_dir: '~/tomcat'
 
 tomcat_major_version: '7'
 
